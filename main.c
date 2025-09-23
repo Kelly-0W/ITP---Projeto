@@ -9,17 +9,9 @@ struct Personagem
    int iniciativa;
 };
 
-int main() {
-   int numero_jogadores;
+void cadastrar_jogadores(struct Personagem jogadores[], int nummero) {
 
-   printf("Digite o numero de jogadores: ");
-   scanf("%d", &numero_jogadores);
-
-   //criar uma lista de jogadores
-   struct Personagem jogadores[numero_jogadores];
-   
-   //coleta de informações dos personagens
-   for (int i = 0; i < numero_jogadores; i++) {
+   for (int i = 0; i < numero; i++) {
       printf("\nJogador %d: \n", i + 1);
 
       printf("Nome: ");
@@ -31,6 +23,37 @@ int main() {
       printf("Iniciativa: ");
       scanf("%d", &jogadores[i].iniciativa);
    }
+   };
+
+void aplicar_buff(struct Personagem jogadores[], int numero) {
+   char resposta;
+
+   printf("Tem algum buff para ser aplicado? (s/n)");
+   scanf(" %c" &resposta);
+
+   char alvo[50];
+   char atributo[20];
+   int valor;
+
+   while (resposta == "s") {
+   
+   printf("Qual jogador vai receber o buff?");
+   scanf("%s", alvo);
+
+   printf ("Qual atributo vai receber buff? (velocidade/iniciativa)");
+   scanf("%d", &atributo);
+
+   printf("Qual o valor do bônus?");
+   scanf("%d", &valor);
+
+   }
+}
+
+int main() {
+   int numero_jogadores;
+
+   printf("Digite o numero de jogadores: ");
+   scanf("%d", &numero_jogadores);
 
    //ordena jogadores do maior para o menor
    for (int i = 0; i < numero_jogadores; i++) {
