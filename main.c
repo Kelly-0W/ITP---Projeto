@@ -9,7 +9,8 @@ struct Personagem
    int iniciativa;
 };
 
-void cadastrar_jogadores(struct Personagem jogadores[], int nummero) {
+//função para cadastrar personagem
+void cadastrar_jogadores(struct Personagem jogadores[], int numero) {
 
    for (int i = 0; i < numero; i++) {
       printf("\nJogador %d: \n", i + 1);
@@ -25,42 +26,64 @@ void cadastrar_jogadores(struct Personagem jogadores[], int nummero) {
    }
    };
 
+//função para buff
 void aplicar_buff(struct Personagem jogadores[], int numero) {
    char resposta;
-
-   printf("Tem algum buff para ser aplicado? (s/n)");
-   scanf(" %c" &resposta);
-
    char alvo[50];
    char atributo[20];
    int valor;
 
-   while (resposta == "s") {
-   
-   printf("Qual jogador vai receber o buff?");
-   scanf("%s", alvo);
+   //perguntar se há buff ou não
+   printf("Tem algum buff para ser aplicado? (s/n): ");
+   scanf(" %c", &resposta);
 
-   printf ("Qual atributo vai receber buff? (velocidade/iniciativa)");
-   scanf("%d", &atributo);
+   while (resposta == 's') {
+   
+   //saber qual o jogador e o tipo de buff
+   printf("Qual jogador vai receber o buff?");
+   scanf(" %49s", alvo);
+
+   printf ("Qual atributo vai receber buff? (vida/iniciativa)");
+   scanf(" %19s", atributo);
 
    printf("Qual o valor do bônus?");
    scanf("%d", &valor);
+   
+   //procurar jogador
+   int encontrado = 0;
+   for (int i = 0; i < numero; i++) {
+      if (strcmp(jogadores[i].nome, alvo) == 0) {
+         if (strcmp(atributo, "vida") == 0) {
+            jogadores[i].vida += valor;
+            printf("%s agora tem %d de vida\n", jogadores[i].nome, jogadores[i].vida);
+         }
+         else if (strcmp(atributo, "iniciativa") == 0) {
+            jogadores[i].iniciativa += valor;
+         }
+         encontrado = 1;
+         break;
+      }
+   }
+   
+   //caso não tenha jogador com o nome escrito
+   if (!encontrado) {
+      printf("Jogador não encontrado!\n");
+   }
 
+   //possibilidade de outro buff
+   printf("Deseja aplicar outro buff? (s/n): ");
+   scanf(" %c", &resposta);
    }
 }
 
-int main() {
-   int numero_jogadores;
+//função para ordenar os personagens pela iniciativa
+void ordenar_personagens(struct Personagem jogadores[], int numero) {
 
-   printf("Digite o numero de jogadores: ");
-   scanf("%d", &numero_jogadores);
-
-   //ordena jogadores do maior para o menor
-   for (int i = 0; i < numero_jogadores; i++) {
+   for (int i = 0; i < numero; i++) {
       int maior_iniciativa = i;
 
       //procura alguém com iniciativa maior que a atual
-      for (int a = i + 1; a < numero_jogadores; a++) {
+      for (int a = i + 1; a < numero; a++) {
          if (jogadores[a].iniciativa > jogadores[maior_iniciativa].iniciativa) {
             maior_iniciativa = a;
          }
@@ -73,15 +96,29 @@ int main() {
          jogadores[maior_iniciativa] = e;
       }
    }
+}
 
-      //exibe a ordem final
-   printf("\n --- Ordem dos turnos --- \n");
-   for (int i = 0; i < numero_jogadores; i++) {
+void mostrar_ordem(struct Personagem jogadores[], int numero) {
+
+      printf("\n --- Ordem dos turnos --- \n");
+   for (int i = 0; i < numero; i++) {
       printf("%s, Iniciativa: %d\n",
          jogadores[i].nome,
          jogadores[i].iniciativa);
 
       }
+}
+int main() {
+   int numero_jogadores;
 
+   printf("Digite o numero de jogadores: ");
+   scanf("%d", &numero_jogadores);
+
+   struct Personagem jogadores[numero_jogadores];
+   cadastrar_jogadores(jogadores, numero_jogadores);
+   aplicar_buff(jogadores, numero_jogadores);
+   ordenar_personagens(jogadores, numero_jogadores);
+   mostrar_ordem(jogadores, numero_jogadores);
+   
    return 0;
 };
