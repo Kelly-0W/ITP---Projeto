@@ -24,7 +24,7 @@ void cadastrar_jogadores(struct Personagem jogadores[], int numero) {
       printf("Iniciativa: ");
       scanf("%d", &jogadores[i].iniciativa);
    }
-   };
+}
 
 //função para buff
 void aplicar_buff(struct Personagem jogadores[], int numero) {
@@ -34,29 +34,51 @@ void aplicar_buff(struct Personagem jogadores[], int numero) {
    int valor;
 
    //perguntar se há buff ou não
+   while (1) {
    printf("Tem algum buff para ser aplicado? (s/n): ");
-   scanf(" %c", &resposta);
+   if (scanf(" %c", &resposta) != 1) {
+      while(getchar() != '\n');
+      printf("Entrada inválida!\n");
+      continue;
+   }
 
-   while (resposta == 's') {
-   
+   if (resposta == 'n') {
+      return;
+   }
+
+   if (resposta != 's') {
+      printf("Escreva apenas 's' ou 'n'.\n");
+      continue;
+   }
+
    //saber qual o jogador e o tipo de buff
    printf("Qual jogador vai receber o buff? ");
-   scanf(" %49s", alvo);
+   if (scanf(" %49s", alvo) != 1) {
+      while(getchar() != '\n');
+      printf("Entrada inválida!\n");
+      continue;
+   }
 
    printf ("Qual atributo vai receber buff? (vida/iniciativa) ");
-   scanf(" %19s", atributo);
+   if (scanf(" %19s", atributo) != 1) {
+      while(getchar() != '\n');
+      printf("Entrada inválida!\n");
+      continue;
+   }
 
    if (strcmp(atributo, "vida") != 0 && strcmp(atributo, "iniciativa") != 0) {
       printf("Atributo inválido! Digite apenas 'vida' ou 'iniciativa'\n");
+      continue;
    }
 
    printf("Qual o valor do bônus?");
 
    if (scanf("%d", &valor) != 1) {
-      printf("Entrada inválida! Digite apenas um valor númerico\n");
-
       //limpar buff
       while(getchar() != '\n');
+      printf("Entrada inválida! Digite apenas um valor númerico\n");
+      continue;
+
    }
    
    //procurar jogador
@@ -86,6 +108,7 @@ void aplicar_buff(struct Personagem jogadores[], int numero) {
    scanf(" %c", &resposta);
    }
 }
+
 
 //função para ordenar os personagens pela iniciativa
 void ordenar_personagens(struct Personagem jogadores[], int numero) {
@@ -119,6 +142,7 @@ void mostrar_ordem(struct Personagem jogadores[], int numero) {
 
       }
 }
+
 int main() {
    int numero_jogadores;
 
