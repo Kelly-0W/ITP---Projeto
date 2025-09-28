@@ -40,10 +40,10 @@ void aplicar_buff(struct Personagem jogadores[], int numero) {
    while (resposta == 's') {
    
    //saber qual o jogador e o tipo de buff
-   printf("Qual jogador vai receber o buff?");
+   printf("Qual jogador vai receber o buff? ");
    scanf(" %49s", alvo);
 
-   printf ("Qual atributo vai receber buff? (vida/iniciativa)");
+   printf ("Qual atributo vai receber buff? (vida/iniciativa) ");
    scanf(" %19s", atributo);
 
    if (strcmp(atributo, "vida") != 0 && strcmp(atributo, "iniciativa") != 0) {
@@ -69,6 +69,7 @@ void aplicar_buff(struct Personagem jogadores[], int numero) {
          }
          else if (strcmp(atributo, "iniciativa") == 0) {
             jogadores[i].iniciativa += valor;
+            printf("%s agora tem %d de iniciativa\n", jogadores[i].nome, jogadores[i].iniciativa);
          }
          encontrado = 1;
          break;
