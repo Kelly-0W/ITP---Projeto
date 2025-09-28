@@ -47,19 +47,16 @@ void aplicar_buff(struct Personagem jogadores[], int numero) {
    scanf(" %19s", atributo);
 
    if (strcmp(atributo, "vida") != 0 && strcmp(atributo, "iniciativa") != 0) {
-      printf("Atributo inválido! Digite apenas 'vida' ou 'iniciativa'");
-      continue;
+      printf("Atributo inválido! Digite apenas 'vida' ou 'iniciativa'\n");
    }
 
    printf("Qual o valor do bônus?");
-   scanf("%d", &valor);
 
    if (scanf("%d", &valor) != 1) {
-      printf("Entrada inválida! Digite apenas um valor númerico");
+      printf("Entrada inválida! Digite apenas um valor númerico\n");
 
       //limpar buff
       while(getchar() != '\n');
-      continue;
    }
    
    //procurar jogador
